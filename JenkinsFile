@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label "windows"
+    }
 
     environment {
         firstStudent = "noviembre"
@@ -12,22 +14,41 @@ pipeline {
     }
 
     stages {
-        stage('first student task') {
-            steps {
-                echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:1"
-                echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:2"
-                echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:3"
-                echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:4"
-            }
-        }
-        stage('Execute') {
-            steps {
-                echo 'Cooking'
-            }
-        }
-        stage('Post') {
-            steps {
-                echo 'dessert'
+        stage('parallel Execution') {
+            parallel {
+                stage('first student task') {
+                    agent any
+                            steps {
+                                script {
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:1"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:2"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:3"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
+                        stage('secondStudent student task') {
+                         agent any
+                            steps {
+                             script {
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:1"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:2"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:3"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
+                        stage('third student task') {
+                            agent any
+                            steps {
+                             script {
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:1"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:2"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:3"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
             }
         }
     }
