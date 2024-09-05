@@ -1,0 +1,55 @@
+pipeline {
+    agent {
+        label "windows"
+    }
+
+    environment {
+        firstStudent = "noviembre"
+        secondStudent = "Octubre"
+        thirdStudent = "Diciembre"
+    }
+
+    parameters {
+        text(name: 'TEACHER_NAME', defaultValue: 'LUISA', description: 'name of the teacher')
+    }
+
+    stages {
+        stage('parallel Execution') {
+            parallel {
+                stage('first student task') {
+                    agent any
+                            steps {
+                                script {
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:1"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:2"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:3"
+                                    echo "${params.TEACHER_NAME} sent ${firstStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
+                        stage('secondStudent student task') {
+                         agent any
+                            steps {
+                             script {
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:1"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:2"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:3"
+                                echo "${params.TEACHER_NAME} sent ${secondStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
+                        stage('third student task') {
+                            agent any
+                            steps {
+                             script {
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:1"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:2"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:3"
+                                echo "${params.TEACHER_NAME} sent ${thirdStudent} to count from 1 to 4:4"
+                                }
+                            }
+                        }
+            }
+        }
+    }
+}
