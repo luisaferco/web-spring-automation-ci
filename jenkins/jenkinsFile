@@ -21,12 +21,11 @@ pipeline {
             }
         }
          stage('work secondStudent') {
-                    steps {
+             steps {
             echo '${params.TEACHER} sent ${secondStudent} to count from 1 to 3: 1'
             echo '${params.TEACHER} sent ${secondStudent} to count from 1 to 3: 2'
             echo '${params.TEACHER} sent ${secondStudent} to count from 1 to 3: 3'
-                                }
-            }
+                  }
          }
     }
 }
